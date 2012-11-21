@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: /home/gonzalo/www/estudioTSP/SymfonyBD/app/config/routing_dev.yml
