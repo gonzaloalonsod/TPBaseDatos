@@ -36,6 +36,13 @@ class Producto
     private $imagen;
     
     /**
+     * @var integer $cantidad
+     *
+     * @ORM\Column(name="cantidad", type="integer")
+     */
+    private $cantidad;
+    
+    /**
      * @var TipoProducto
      *
      * @ORM\ManyToOne(targetEntity="TipoProducto")
@@ -123,5 +130,28 @@ class Producto
     public function getIdTipoProducto()
     {
         return $this->idTipoProducto;
+    }
+
+    /**
+     * Set cantidad
+     *
+     * @param integer $cantidad
+     * @return Producto
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+    
+        return $this;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return integer 
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
     }
 }

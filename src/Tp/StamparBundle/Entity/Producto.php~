@@ -36,6 +36,13 @@ class Producto
     private $imagen;
     
     /**
+     * @var integer $cantidad
+     *
+     * @ORM\Column(name="cantidad", type="integer")
+     */
+    private $cantidad;
+    
+    /**
      * @var TipoProducto
      *
      * @ORM\ManyToOne(targetEntity="TipoProducto")
@@ -100,5 +107,28 @@ class Producto
     public function getImagen()
     {
         return $this->imagen;
+    }
+
+    /**
+     * Set idTipoProducto
+     *
+     * @param Tp\StamparBundle\Entity\TipoProducto $idTipoProducto
+     * @return Producto
+     */
+    public function setIdTipoProducto(\Tp\StamparBundle\Entity\TipoProducto $idTipoProducto = null)
+    {
+        $this->idTipoProducto = $idTipoProducto;
+    
+        return $this;
+    }
+
+    /**
+     * Get idTipoProducto
+     *
+     * @return Tp\StamparBundle\Entity\TipoProducto 
+     */
+    public function getIdTipoProducto()
+    {
+        return $this->idTipoProducto;
     }
 }
