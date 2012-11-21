@@ -5,15 +5,15 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tp\StamparBundle\Entity\Pedido
+ * factura
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Pedido
+class factura
 {
     /**
-     * @var integer $id
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,7 +22,14 @@ class Pedido
     private $id;
 
     /**
-     * @var \DateTime $fecha
+     * @var float
+     *
+     * @ORM\Column(name="total", type="float")
+     */
+    private $total;
+
+    /**
+     * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime")
      */
@@ -40,10 +47,33 @@ class Pedido
     }
 
     /**
+     * Set total
+     *
+     * @param float $total
+     * @return factura
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    
+        return $this;
+    }
+
+    /**
+     * Get total
+     *
+     * @return float 
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
      * Set fecha
      *
      * @param \DateTime $fecha
-     * @return Pedido
+     * @return factura
      */
     public function setFecha($fecha)
     {

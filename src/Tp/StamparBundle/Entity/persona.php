@@ -5,15 +5,15 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tp\StamparBundle\Entity\Producto
+ * persona
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Producto
+class persona
 {
     /**
-     * @var integer $id
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,18 +22,25 @@ class Producto
     private $id;
 
     /**
-     * @var string $nombre
+     * @var integer
+     *
+     * @ORM\Column(name="dni", type="bigint")
+     */
+    private $dni;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
-     * @var string $imagen
+     * @var string
      *
-     * @ORM\Column(name="imagen", type="string", length=255)
+     * @ORM\Column(name="apellido", type="string", length=255)
      */
-    private $imagen;
+    private $apellido;
 
 
     /**
@@ -47,10 +54,33 @@ class Producto
     }
 
     /**
+     * Set dni
+     *
+     * @param integer $dni
+     * @return persona
+     */
+    public function setDni($dni)
+    {
+        $this->dni = $dni;
+    
+        return $this;
+    }
+
+    /**
+     * Get dni
+     *
+     * @return integer 
+     */
+    public function getDni()
+    {
+        return $this->dni;
+    }
+
+    /**
      * Set nombre
      *
      * @param string $nombre
-     * @return Producto
+     * @return persona
      */
     public function setNombre($nombre)
     {
@@ -70,25 +100,25 @@ class Producto
     }
 
     /**
-     * Set imagen
+     * Set apellido
      *
-     * @param string $imagen
-     * @return Producto
+     * @param string $apellido
+     * @return persona
      */
-    public function setImagen($imagen)
+    public function setApellido($apellido)
     {
-        $this->imagen = $imagen;
+        $this->apellido = $apellido;
     
         return $this;
     }
 
     /**
-     * Get imagen
+     * Get apellido
      *
      * @return string 
      */
-    public function getImagen()
+    public function getApellido()
     {
-        return $this->imagen;
+        return $this->apellido;
     }
 }
