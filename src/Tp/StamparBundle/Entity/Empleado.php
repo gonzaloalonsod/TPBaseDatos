@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tp\StamparBundle\Entity\empleado
+ * Tp\StamparBundle\Entity\Empleado
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class empleado
+class Empleado
 {
     /**
      * @var integer $id
@@ -41,6 +41,16 @@ class empleado
      * @ORM\Column(name="apellido", type="string", length=50)
      */
     private $apellido;
+    
+    /**
+     * @var Empleado
+     *
+     * @ORM\ManyToOne(targetEntity="Empleado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_supervisa", referencedColumnName="id")
+     * })
+     */
+    private $idSupervisa;
 
 
     /**
@@ -120,5 +130,28 @@ class empleado
     public function getApellido()
     {
         return $this->apellido;
+    }
+
+    /**
+     * Set idSupervisa
+     *
+     * @param Tp\StamparBundle\Entity\Empleado $idSupervisa
+     * @return empleado
+     */
+    public function setIdSupervisa(\Tp\StamparBundle\Entity\Empleado $idSupervisa = null)
+    {
+        $this->idSupervisa = $idSupervisa;
+    
+        return $this;
+    }
+
+    /**
+     * Get idSupervisa
+     *
+     * @return Tp\StamparBundle\Entity\Empleado 
+     */
+    public function getIdSupervisa()
+    {
+        return $this->idSupervisa;
     }
 }

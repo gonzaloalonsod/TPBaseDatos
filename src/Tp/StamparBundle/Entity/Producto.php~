@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tp\StamparBundle\Entity\TipoProducto
+ * Tp\StamparBundle\Entity\Producto
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class TipoProducto
+class Producto
 {
     /**
      * @var integer $id
@@ -28,6 +28,23 @@ class TipoProducto
      */
     private $nombre;
 
+    /**
+     * @var string $imagen
+     *
+     * @ORM\Column(name="imagen", type="string", length=255)
+     */
+    private $imagen;
+    
+    /**
+     * @var TipoProducto
+     *
+     * @ORM\ManyToOne(targetEntity="TipoProducto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tipo_producto", referencedColumnName="id")
+     * })
+     */
+    private $idTipoProducto;
+
 
     /**
      * Get id
@@ -43,7 +60,7 @@ class TipoProducto
      * Set nombre
      *
      * @param string $nombre
-     * @return TipoProducto
+     * @return Producto
      */
     public function setNombre($nombre)
     {
@@ -60,5 +77,28 @@ class TipoProducto
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     * @return Producto
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+    
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
     }
 }
