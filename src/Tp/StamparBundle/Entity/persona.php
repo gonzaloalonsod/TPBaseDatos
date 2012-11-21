@@ -5,15 +5,15 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tp\StamparBundle\Entity\empleado
+ * persona
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class empleado
+class persona
 {
     /**
-     * @var integer $id
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,35 +22,25 @@ class empleado
     private $id;
 
     /**
-     * @var integer $dni
+     * @var integer
      *
-     * @ORM\Column(name="dni", type="integer")
+     * @ORM\Column(name="dni", type="bigint")
      */
     private $dni;
 
     /**
-     * @var string $nombre
+     * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=50)
+     * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
-     * @var string $apellido
+     * @var string
      *
-     * @ORM\Column(name="apellido", type="string", length=50)
+     * @ORM\Column(name="apellido", type="string", length=255)
      */
     private $apellido;
-    
-    /**
-     * @var Empleado
-     *
-     * @ORM\ManyToOne(targetEntity="Empleado")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_supervisa", referencedColumnName="id")
-     * })
-     */
-    private $idSupervisa;
 
 
     /**
@@ -67,7 +57,7 @@ class empleado
      * Set dni
      *
      * @param integer $dni
-     * @return empleado
+     * @return persona
      */
     public function setDni($dni)
     {
@@ -90,7 +80,7 @@ class empleado
      * Set nombre
      *
      * @param string $nombre
-     * @return empleado
+     * @return persona
      */
     public function setNombre($nombre)
     {
@@ -113,7 +103,7 @@ class empleado
      * Set apellido
      *
      * @param string $apellido
-     * @return empleado
+     * @return persona
      */
     public function setApellido($apellido)
     {
