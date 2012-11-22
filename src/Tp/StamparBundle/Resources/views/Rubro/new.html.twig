@@ -1,16 +1,25 @@
-<h1>Rubro creation</h1>
+{% extends 'JordiLlonchCrudGeneratorBundle::layout.html.twig' %}
 
-<form action="{{ path('rubro_create') }}" method="post" {{ form_enctype(form) }}>
+{% block title %}
+{{ parent() }} - Rubro {{ 'views.new.creation'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+{% endblock %}
+
+{% block page %}
+
+<h1>Rubro {{ 'views.new.creation'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</h1>
+
+<form class="well" action="{{ path('rubro_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
-        <button type="submit">Create</button>
+        <button type="submit" class="btn btn-success">{{ 'views.new.create'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
     </p>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('rubro') }}">
-            Back to the list
+<div>
+    <div class="float-left">
+        <a class="btn" href="{{ path('rubro') }}">
+            {{ 'views.recordactions.backtothelist'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
         </a>
-    </li>
-</ul>
+    </div>
+</div>
+{% endblock %}
