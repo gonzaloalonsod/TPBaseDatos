@@ -40,7 +40,7 @@ class Factura
      *
      * @ORM\ManyToOne(targetEntity="Cliente")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id", nullable=false)
      * })
      */
     private $idCliente;
@@ -50,13 +50,13 @@ class Factura
      *
      * @ORM\ManyToOne(targetEntity="Empleado")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id", nullable=false)
      * })
      */
     private $idEmpleado;
     
     /**
-     * @ORM\OneToMany(targetEntity="Linea_factura", mappedBy="idfactura", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="LineaFactura", mappedBy="idFactura", cascade={"persist", "remove"})
      */
     private $idLineaFactura;
     
@@ -140,10 +140,10 @@ class Factura
     /**
      * Add idLineaFactura
      *
-     * @param \Tp\StamparBundle\Entity\Linea_factura $idLineaFactura
+     * @param \Tp\StamparBundle\Entity\LineaFactura $idLineaFactura
      * @return Factura
      */
-    public function addIdLineaFactura(\Tp\StamparBundle\Entity\Linea_factura $idLineaFactura)
+    public function addIdLineaFactura(\Tp\StamparBundle\Entity\LineaFactura $idLineaFactura)
     {
         $this->idLineaFactura[] = $idLineaFactura;
     
@@ -153,9 +153,9 @@ class Factura
     /**
      * Remove idLineaFactura
      *
-     * @param \Tp\StamparBundle\Entity\Linea_factura $idLineaFactura
+     * @param \Tp\StamparBundle\Entity\LineaFactura $idLineaFactura
      */
-    public function removeIdLineaFactura(\Tp\StamparBundle\Entity\Linea_factura $idLineaFactura)
+    public function removeIdLineaFactura(\Tp\StamparBundle\Entity\LineaFactura $idLineaFactura)
     {
         $this->idLineaFactura->removeElement($idLineaFactura);
     }

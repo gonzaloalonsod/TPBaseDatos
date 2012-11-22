@@ -63,9 +63,9 @@ class Conexion {
     }
     
     public function buscarComprasDeCliente($dni){
-        $clientes = array();
+        $compras = array();
 
-        $consulta = mysql_query('SELECT c.id, c.direccion, c.telefono, p.dni, p.nombre, p.apellido from Factura AS f
+        $consulta = mysql_query('SELECT f.id, f.fecha, f.total from Factura AS f
                                     INNER JOIN Cliente AS c
                                         ON f.id_cliente = c.id
                                     INNER JOIN Persona AS p
@@ -75,10 +75,41 @@ class Conexion {
         while ($value = mysql_fetch_object($consulta)) {
             var_dump($value);
             echo '<br>';
-            array_push($clientes, $value);
+            array_push($compras, $value);
         }
 
-        return $clientes;
+        return $compras;
+    }
+    
+    public function totalComprasDeCliente($dni){
+        $consulta = mysql_query('SELECT SUM(f.total) from Factura AS f
+                                    INNER JOIN Cliente AS c
+                                        ON f.id_cliente = c.id
+                                    INNER JOIN Persona AS p
+                                        ON c.id = p.id_cliente
+                                    WHERE p.dni = '.$dni.'
+                                ');
+
+        return mysql_fetch_row($consulta);
+    }
+    
+    public function buscarFacturasMayor($valor){
+        $facturas = array();
+
+        $consulta = mysql_query('SELECT f.id, f.fecha, f.total from Factura AS f
+                                    INNER JOIN Cliente AS c
+                                        ON f.id_cliente = c.id
+                                    INNER JOIN Persona AS p
+                                        ON c.id = p.id_cliente
+                                    WHERE f.total > '.$valor.'
+                                ');
+        while ($value = mysql_fetch_object($consulta)) {
+            var_dump($value);
+            echo '<br>';
+            array_push($facturas, $value);
+        }
+
+        return $facturas;
     }
 
 //    public function findAllLocal(){

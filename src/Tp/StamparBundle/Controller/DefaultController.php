@@ -17,16 +17,16 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/hello/{name}")
+     * @Route("/", name="inicio")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array();
     }
     
     /**
-     * @Route("/pedidos/{id}")
+     * @Route("/pedidos/{id}", name="pedidos")
      * @Template()
      */
     public function pedidosAction($id)
@@ -37,13 +37,39 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/clientes/{nomyape}")
+     * @Route("/clientes/{nomyape}", name="clientes")
      * @Template()
      */
     public function clientesAction($nomyape)
     {
-        $pedidos = $this->em->buscarClientesPorNomyape($nomyape);
-//        var_dump($pedidos);die;
-        return array('entities' => $pedidos);
+        $clientes = $this->em->buscarClientesPorNomyape($nomyape);
+//        var_dump($clientes);die;
+        return array('entities' => $clientes);
+    }
+    
+    /**
+     * @Route("/compras/{dni}", name="compras")
+     * @Template()
+     */
+    public function comprasAction($dni)
+    {
+        $compras = $this->em->buscarComprasDeCliente($dni);
+        $total = $this->em->totalComprasDeCliente($dni);
+//        var_dump($total);die;
+        return array(
+            'entities' => $compras,
+            'total' => $total[0]
+        );
+    }
+    
+    /**
+     * @Route("/facturas", name="facturas")
+     * @Template()
+     */
+    public function facturasAction()
+    {
+        $facturas = $this->em->buscarFacturasMayor(1000);
+//        var_dump($clientes);die;
+        return array('entities' => $facturas);
     }
 }
