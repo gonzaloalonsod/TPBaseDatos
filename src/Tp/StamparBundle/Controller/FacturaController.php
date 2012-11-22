@@ -2,13 +2,17 @@
 
 namespace Tp\StamparBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\View\TwitterBootstrapView;
+
 use Tp\StamparBundle\Entity\Factura;
 use Tp\StamparBundle\Form\FacturaType;
+use Tp\StamparBundle\Form\FacturaFilterType;
 
 /**
  * Factura controller.
@@ -25,15 +29,91 @@ class FacturaController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        list($filterForm, $queryBuilder) = $this->filter();
 
-        $entities = $em->getRepository('TpStamparBundle:Factura')->findAll();
+        list($entities, $pagerHtml) = $this->paginator($queryBuilder);
 
+    
         return array(
             'entities' => $entities,
+            'pagerHtml' => $pagerHtml,
+            'filterForm' => $filterForm->createView(),
         );
     }
 
+    /**
+    * Create filter form and process filter request.
+    *
+    */
+    protected function filter()
+    {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $filterForm = $this->createForm(new FacturaFilterType());
+        $em = $this->getDoctrine()->getManager();
+        $queryBuilder = $em->getRepository('TpStamparBundle:Factura')->createQueryBuilder('e');
+    
+        // Reset filter
+        if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'reset') {
+            $session->remove('FacturaControllerFilter');
+        }
+    
+        // Filter action
+        if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'filter') {
+            // Bind values from the request
+            $filterForm->bind($request);
+
+            if ($filterForm->isValid()) {
+                // Build the query from the given form object
+                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
+                // Save filter to session
+                $filterData = $filterForm->getData();
+                $session->set('FacturaControllerFilter', $filterData);
+            }
+        } else {
+            // Get filter from session
+            if ($session->has('FacturaControllerFilter')) {
+                $filterData = $session->get('FacturaControllerFilter');
+                $filterForm = $this->createForm(new FacturaFilterType(), $filterData);
+                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
+            }
+        }
+    
+        return array($filterForm, $queryBuilder);
+    }
+
+    /**
+    * Get results from paginator and get paginator view.
+    *
+    */
+    protected function paginator($queryBuilder)
+    {
+        // Paginator
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+        $pagerfanta = new Pagerfanta($adapter);
+        $currentPage = $this->getRequest()->get('page', 1);
+        $pagerfanta->setCurrentPage($currentPage);
+        $entities = $pagerfanta->getCurrentPageResults();
+    
+        // Paginator - route generator
+        $me = $this;
+        $routeGenerator = function($page) use ($me)
+        {
+            return $me->generateUrl('factura', array('page' => $page));
+        };
+    
+        // Paginator - view
+        $translator = $this->get('translator');
+        $view = new TwitterBootstrapView();
+        $pagerHtml = $view->render($pagerfanta, $routeGenerator, array(
+            'proximity' => 3,
+            'prev_message' => $translator->trans('views.index.pagprev', array(), 'JordiLlonchCrudGeneratorBundle'),
+            'next_message' => $translator->trans('views.index.pagnext', array(), 'JordiLlonchCrudGeneratorBundle'),
+        ));
+    
+        return array($entities, $pagerHtml);
+    }
+    
     /**
      * Finds and displays a Factura entity.
      *
@@ -79,21 +159,24 @@ class FacturaController extends Controller
      * Creates a new Factura entity.
      *
      * @Route("/create", name="factura_create")
-     * @Method("POST")
+     * @Method("post")
      * @Template("TpStamparBundle:Factura:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction()
     {
         $entity  = new Factura();
-        $form = $this->createForm(new FacturaType(), $entity);
+        $request = $this->getRequest();
+        $form    = $this->createForm(new FacturaType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'flash.create.success');
 
-            return $this->redirect($this->generateUrl('factura_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('factura_show', array('id' => $entity->getId())));        } else {
+            $this->get('session')->getFlashBag()->add('error', 'flash.create.error');
         }
 
         return array(
@@ -101,7 +184,6 @@ class FacturaController extends Controller
             'form'   => $form->createView(),
         );
     }
-
     /**
      * Displays a form to edit an existing Factura entity.
      *
@@ -132,10 +214,10 @@ class FacturaController extends Controller
      * Edits an existing Factura entity.
      *
      * @Route("/{id}/update", name="factura_update")
-     * @Method("POST")
+     * @Method("post")
      * @Template("TpStamparBundle:Factura:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -145,15 +227,21 @@ class FacturaController extends Controller
             throw $this->createNotFoundException('Unable to find Factura entity.');
         }
 
+        $editForm   = $this->createForm(new FacturaType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new FacturaType(), $entity);
+
+        $request = $this->getRequest();
+
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'flash.update.success');
 
             return $this->redirect($this->generateUrl('factura_edit', array('id' => $id)));
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'flash.update.error');
         }
 
         return array(
@@ -162,16 +250,17 @@ class FacturaController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
     /**
      * Deletes a Factura entity.
      *
      * @Route("/{id}/delete", name="factura_delete")
-     * @Method("POST")
+     * @Method("post")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $form = $this->createDeleteForm($id);
+        $request = $this->getRequest();
+
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -184,6 +273,9 @@ class FacturaController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'flash.delete.success');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'flash.delete.error');
         }
 
         return $this->redirect($this->generateUrl('factura'));
