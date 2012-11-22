@@ -1,1 +1,22 @@
-Hello {{ name }}!
+<ul>
+    <li>
+        <a href="{{ path('pedidos', { 'id': 1 }) }}">
+            Obtener todos los pedidos hechos por un determinado empleado.
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('clientes', { 'nomyape': 'a' }) }}">
+            Listar todos los clientes que coincidan con determinada cadena de caracteres en su nombre o apellido.
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('compras', { 'dni': 1 }) }}">
+            Obtener un listado de todas las compras hechas por un cliente y su total.
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('facturas') }}">
+            Listar todas las facturas que superen los $1000.
+        </a>
+    </li>
+</ul>

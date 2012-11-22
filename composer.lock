@@ -1,5 +1,5 @@
 {
-    "hash": "871ca732d39c832f0b78012cc83cec2e",
+    "hash": "81765e92ae176a810e5ead5cad7ee40b",
     "packages": [
         {
             "name": "doctrine/common",
@@ -575,6 +575,56 @@
             ]
         },
         {
+            "name": "jordillonch/crud-generator",
+            "version": "dev-master",
+            "target-dir": "JordiLlonch/Bundle/CrudGeneratorBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jordillonch/CrudGeneratorBundle",
+                "reference": "db28a2374311ebcf0f855f8fb6ef72f0c8e13dbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/jordillonch/CrudGeneratorBundle/archive/db28a2374311ebcf0f855f8fb6ef72f0c8e13dbc.zip",
+                "reference": "db28a2374311ebcf0f855f8fb6ef72f0c8e13dbc",
+                "shasum": ""
+            },
+            "require": {
+                "pagerfanta/pagerfanta": "dev-master",
+                "lexik/form-filter-bundle": "dev-master",
+                "symfony/symfony": "2.1.*",
+                "sensio/generator-bundle": "2.1.*"
+            },
+            "time": "1353073778",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "JordiLlonch\\Bundle\\CrudGeneratorBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Llonch",
+                    "email": "llonch.jordi@gmail.com"
+                }
+            ],
+            "description": "This bundle generates a nice CRUD",
+            "homepage": "https://github.com/jordillonch/CrudGeneratorBundle",
+            "keywords": [
+                "generator",
+                "crud"
+            ]
+        },
+        {
             "name": "kriswallsmith/assetic",
             "version": "dev-master",
             "source": {
@@ -641,6 +691,58 @@
             ]
         },
         {
+            "name": "lexik/form-filter-bundle",
+            "version": "dev-master",
+            "target-dir": "Lexik/Bundle/FormFilterBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lexik/LexikFormFilterBundle",
+                "reference": "65d8dc71d6e0ccbb66c0536d86fc45731e6bcdc7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/lexik/LexikFormFilterBundle/archive/65d8dc71d6e0ccbb66c0536d86fc45731e6bcdc7.zip",
+                "reference": "65d8dc71d6e0ccbb66c0536d86fc45731e6bcdc7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.1.*,<2.2-dev",
+                "doctrine/orm": "*",
+                "symfony/form": "2.1.*"
+            },
+            "time": "1353248714",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Lexik\\Bundle\\FormFilterBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dev Lexik",
+                    "email": "dev@lexik.fr"
+                },
+                {
+                    "name": "Cedric Girard",
+                    "email": "c.girard@lexik.fr"
+                }
+            ],
+            "description": "This bundle aim to provide classes to build some form filters and then build a doctrine query from this form filter.",
+            "homepage": "https://github.com/lexik/LexikFormFilterBundle",
+            "keywords": [
+                "Symfony2",
+                "form",
+                "bundle",
+                "doctrine",
+                "filter"
+            ]
+        },
+        {
             "name": "monolog/monolog",
             "version": "dev-master",
             "source": {
@@ -694,6 +796,52 @@
             "keywords": [
                 "log",
                 "logging"
+            ]
+        },
+        {
+            "name": "pagerfanta/pagerfanta",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/whiteoctober/Pagerfanta.git",
+                "reference": "12f71d99457b018fb80746f84514dd5b495c5789"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/whiteoctober/Pagerfanta/archive/12f71d99457b018fb80746f84514dd5b495c5789.zip",
+                "reference": "12f71d99457b018fb80746f84514dd5b495c5789",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "doctrine/orm": "2.*",
+                "doctrine/mongodb-odm": "2.*",
+                "solarium/solarium": "2.*"
+            },
+            "time": "1345672591",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Pagerfanta\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Díez",
+                    "email": "pablodip@gmail.com",
+                    "homepage": "http://github.com/pablodip"
+                }
+            ],
+            "description": "Pagination for PHP 5.3",
+            "keywords": [
+                "page",
+                "paging"
             ]
         },
         {
@@ -1254,7 +1402,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "jordillonch/crud-generator": 20
+    }
 }
