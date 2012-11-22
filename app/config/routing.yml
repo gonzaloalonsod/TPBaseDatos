@@ -1,7 +1,7 @@
 tp_stampar:
     resource: "@TpStamparBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /stampar
 
 # Internal routing configuration to handle ESI
 #_internal:

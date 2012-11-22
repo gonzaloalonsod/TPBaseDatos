@@ -131,4 +131,27 @@ class Producto
     {
         return $this->idTipoProducto;
     }
+
+    /**
+     * Set cantidad
+     *
+     * @param integer $cantidad
+     * @return Producto
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+    
+        return $this;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return integer 
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
 }

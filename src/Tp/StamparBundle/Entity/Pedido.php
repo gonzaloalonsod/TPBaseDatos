@@ -32,6 +32,16 @@ class Pedido
      * @ORM\OneToMany(targetEntity="LineaPedido", mappedBy="idPedido", cascade={"persist", "remove"})
      */
     private $idLineaPedido;
+    
+    /**
+     * @var Empleado
+     *
+     * @ORM\ManyToOne(targetEntity="Empleado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id", nullable=false)
+     * })
+     */
+    private $idEmpleado;
 
 
     /**
@@ -42,6 +52,10 @@ class Pedido
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**
@@ -105,5 +119,28 @@ class Pedido
     public function getIdLineaPedido()
     {
         return $this->idLineaPedido;
+    }
+
+    /**
+     * Set idEmpleado
+     *
+     * @param Tp\StamparBundle\Entity\Empleado $idEmpleado
+     * @return Pedido
+     */
+    public function setIdEmpleado(\Tp\StamparBundle\Entity\Empleado $idEmpleado = null)
+    {
+        $this->idEmpleado = $idEmpleado;
+    
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return Tp\StamparBundle\Entity\Empleado 
+     */
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
     }
 }
