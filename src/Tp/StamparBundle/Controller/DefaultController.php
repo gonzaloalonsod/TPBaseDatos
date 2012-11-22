@@ -26,12 +26,23 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/pedidos")
+     * @Route("/pedidos/{id}")
      * @Template()
      */
-    public function pedidosAction()
+    public function pedidosAction($id)
     {
-        $pedidos = $this->em->buscarPedidosPorEmpleado(1);
+        $pedidos = $this->em->buscarPedidosPorEmpleado($id);
+//        var_dump($pedidos);die;
+        return array('entities' => $pedidos);
+    }
+    
+    /**
+     * @Route("/clientes/{nomyape}")
+     * @Template()
+     */
+    public function clientesAction($nomyape)
+    {
+        $pedidos = $this->em->buscarClientes($nomyape);
 //        var_dump($pedidos);die;
         return array('entities' => $pedidos);
     }
