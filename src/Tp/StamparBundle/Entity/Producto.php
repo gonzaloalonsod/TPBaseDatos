@@ -62,7 +62,7 @@ class Producto
     /**
      * @var Proveedor
      *
-     * @ORM\ManyToOne(targetEntity="proveedor")
+     * @ORM\ManyToOne(targetEntity="Proveedor")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_proveedor", referencedColumnName="id")
      * })
@@ -152,10 +152,10 @@ class Producto
      /**
      * Set idProveedor
      *
-     * @param Tp\StamparBundle\Entity\proveedor $idProveedor
+     * @param Tp\StamparBundle\Entity\Proveedor $idProveedor
      * @return Producto
      */
-    public function setIdProveedor(\Tp\StamparBundle\Entity\proveedor $idProveedor = null)
+    public function setIdProveedor(\Tp\StamparBundle\Entity\Proveedor $idProveedor = null)
     {
         $this->idProveedor = $idProveedor;
     
@@ -165,7 +165,7 @@ class Producto
     /**
      * Get idProveedor
      *
-     * @return Tp\StamparBundle\Entity\proveedor
+     * @return Tp\StamparBundle\Entity\Proveedor
      */
     public function getIdProveedor()
     {
