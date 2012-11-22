@@ -58,6 +58,16 @@ class Producto
      * })
      */
     private $idTipoProducto;
+    
+    /**
+     * @var Proveedor
+     *
+     * @ORM\ManyToOne(targetEntity="proveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_proveedor", referencedColumnName="id")
+     * })
+     */
+    private $idProveedor;
 
 
     /**
@@ -138,7 +148,30 @@ class Producto
     {
         return $this->idTipoProducto;
     }
+    
+     /**
+     * Set idProveedor
+     *
+     * @param Tp\StamparBundle\Entity\proveedor $idProveedor
+     * @return Producto
+     */
+    public function setIdProveedor(\Tp\StamparBundle\Entity\proveedor $idProveedor = null)
+    {
+        $this->idProveedor = $idProveedor;
+    
+        return $this;
+    }
 
+    /**
+     * Get idProveedor
+     *
+     * @return Tp\StamparBundle\Entity\proveedor
+     */
+    public function getIdProveedor()
+    {
+        return $this->idProveedor;
+    }
+    
     /**
      * Set cantidad
      *
