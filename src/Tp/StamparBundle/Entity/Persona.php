@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * persona
+ * Persona
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class persona
+class Persona
 {
     /**
      * @var integer
@@ -41,6 +41,16 @@ class persona
      * @ORM\Column(name="apellido", type="string", length=255)
      */
     private $apellido;
+    
+    /**
+     * @var Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
+     * })
+     */
+    private $idCliente;
 
 
     /**
@@ -120,5 +130,26 @@ class persona
     public function getApellido()
     {
         return $this->apellido;
+    }
+    
+    /**
+     * Set idCliente
+     *
+     * @param Tp\StamparBundle\Entity\Cliente $idCliente
+     * @return Factura
+     */
+    public function setIdCliente(\Tp\StamparBundle\Entity\Cliente $idCliente = null) {
+        $this->idCliente = $idCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get idCliente
+     *
+     * @return Tp\StamparBundle\Entity\Cliente
+     */
+    public function getIdCliente() {
+        return $this->idCliente;
     }
 }

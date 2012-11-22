@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * empresa
+ * Empresa
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class empresa
+class Empresa
 {
     /**
      * @var integer
@@ -34,6 +34,16 @@ class empresa
      * @ORM\Column(name="CUIT", type="string", length=255)
      */
     private $CUIT;
+    
+    /**
+     * @var Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
+     * })
+     */
+    private $idCliente;
 
 
     /**
@@ -90,5 +100,26 @@ class empresa
     public function getCUIT()
     {
         return $this->CUIT;
+    }
+    
+    /**
+     * Set idCliente
+     *
+     * @param Tp\StamparBundle\Entity\Cliente $idCliente
+     * @return Factura
+     */
+    public function setIdCliente(\Tp\StamparBundle\Entity\Cliente $idCliente = null) {
+        $this->idCliente = $idCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get idCliente
+     *
+     * @return Tp\StamparBundle\Entity\Cliente
+     */
+    public function getIdCliente() {
+        return $this->idCliente;
     }
 }
