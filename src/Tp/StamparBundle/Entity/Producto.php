@@ -43,6 +43,13 @@ class Producto
     private $cantidad;
     
     /**
+     * @var float $precio
+     *
+     * @ORM\Column(name="precio", type="float", nullable=false)
+     */
+    private $precio;
+    
+    /**
      * @var TipoProducto
      *
      * @ORM\ManyToOne(targetEntity="TipoProducto")
@@ -153,5 +160,28 @@ class Producto
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+    
+    /**
+     * Set precio
+     *
+     * @param float $precio
+     * @return Producto
+     */
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
+    
+        return $this;
+    }
+
+    /**
+     * Get precio
+     *
+     * @return float 
+     */
+    public function getPrecio()
+    {
+        return $this->precio;
     }
 }

@@ -35,7 +35,31 @@ class factura
      */
     private $fecha;
 
-
+    /**
+     * @var Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="cliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
+     * })
+     */
+    private $idCliente;
+    
+    /**
+     * @var Empleado
+     *
+     * @ORM\ManyToOne(targetEntity="Empleado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
+     * })
+     */
+    private $idEmpleado;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="linea_factura", mappedBy="idfactura", cascade={"persist", "remove"})
+     */
+    private $idLineaFactura;
+    
     /**
      * Get id
      *
@@ -90,5 +114,96 @@ class factura
     public function getFecha()
     {
         return $this->fecha;
+    }
+    
+    /**
+     * Set idCliente
+     *
+     * @param Tp\StamparBundle\Entity\cliente $idCliente
+     * @return Factura
+     */
+    public function setIdCliente(\Tp\StamparBundle\Entity\cliente $idCliente = null) {
+        $this->idCliente = $idCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get idCliente
+     *
+     * @return Tp\StamparBundle\Entity\cliente
+     */
+    public function getIdCliente() {
+        return $this->idCliente;
+    }
+    
+    /**
+     * Add idLineaFactura
+     *
+     * @param \Tp\StamparBundle\Entity\linea_factura $idLineaFactura
+     * @return Factura
+     */
+    public function addIdLineaFactura(\Tp\StamparBundle\Entity\linea_factura $idLineaFactura)
+    {
+        $this->idLineaFactura[] = $idLineaFactura;
+    
+        return $this;
+    }
+
+    /**
+     * Remove idLineaFactura
+     *
+     * @param \Tp\StamparBundle\Entity\linea_factura $idLineaFactura
+     */
+    public function removeIdLineaFactura(\Tp\StamparBundle\Entity\linea_factura $idLineaFactura)
+    {
+        $this->idLineaFactura->removeElement($idLineaFactura);
+    }
+
+    /**
+     * Get idLineaFactura
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIdLineaFactura()
+    {
+        return $this->idLineaFactura;
+    }
+
+    /**
+     * Set idLineaFactura
+     *
+     * @return LineaFactura
+     */
+    public function setIdLineaFactura(ArrayCollection $idLineaFactura)
+    {
+        foreach ($idLineaFactura as $lf) {
+            $lf->setIdFactura($this);
+        }
+
+        $this->idLineaFactura = $idLineaFactura;
+        
+        return $this;
+    }
+    
+    /**
+     * Set idEmpleado
+     *
+     * @param Tp\StamparBundle\Entity\Empleado $idEmpleado
+     * @return Factura
+     */
+    public function setIdEmpleado(\Tp\StamparBundle\Entity\Empleado $idEmpleado = null) {
+        $this->idEmpleado = $idEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return Tp\StamparBundle\Entity\Empleado
+     */
+    public function getIdEmpleado() {
+        return $this->idEmpleado;
     }
 }
