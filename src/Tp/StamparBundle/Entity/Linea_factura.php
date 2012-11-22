@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * linea_factura
+ * Linea_factura
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class linea_factura
+class Linea_factura
 {
     /**
      * @var integer
@@ -38,7 +38,7 @@ class linea_factura
     /**
      * @var Factura
      *
-     * @ORM\ManyToOne(targetEntity="factura", inversedBy="idLineaFactura")
+     * @ORM\ManyToOne(targetEntity="Factura", inversedBy="idLineaFactura")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_factura", referencedColumnName="id", onDelete="CASCADE")
      * })
@@ -114,10 +114,10 @@ class linea_factura
     /**
      * Set idFactura
      *
-     * @param Tp\StamparBundle\Entity\factura $idFactura
+     * @param Tp\StamparBundle\Entity\Factura $idFactura
      * @return LineaFactura
      */
-    public function setIdFactura(\Tp\StamparBundle\Entity\factura $idFactura = null)
+    public function setIdFactura(\Tp\StamparBundle\Entity\Factura $idFactura = null)
     {
         $this->idFactura = $idFactura;
     
@@ -127,7 +127,7 @@ class linea_factura
     /**
      * Get idFactura
      *
-     * @return \Tp\StamparBundle\Entity\factura
+     * @return \Tp\StamparBundle\Entity\Factura
      */
     public function getIdFactura()
     {

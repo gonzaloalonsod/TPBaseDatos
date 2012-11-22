@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * proveedor
+ * Proveedor
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class proveedor
+class Proveedor
 {
     /**
      * @var integer

@@ -5,12 +5,12 @@ namespace Tp\StamparBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * factura
+ * Factura
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class factura
+class Factura
 {
     /**
      * @var integer
@@ -38,7 +38,7 @@ class factura
     /**
      * @var Cliente
      *
-     * @ORM\ManyToOne(targetEntity="cliente")
+     * @ORM\ManyToOne(targetEntity="Cliente")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
      * })
@@ -56,7 +56,7 @@ class factura
     private $idEmpleado;
     
     /**
-     * @ORM\OneToMany(targetEntity="linea_factura", mappedBy="idfactura", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Linea_factura", mappedBy="idfactura", cascade={"persist", "remove"})
      */
     private $idLineaFactura;
     
@@ -119,10 +119,10 @@ class factura
     /**
      * Set idCliente
      *
-     * @param Tp\StamparBundle\Entity\cliente $idCliente
+     * @param Tp\StamparBundle\Entity\Cliente $idCliente
      * @return Factura
      */
-    public function setIdCliente(\Tp\StamparBundle\Entity\cliente $idCliente = null) {
+    public function setIdCliente(\Tp\StamparBundle\Entity\Cliente $idCliente = null) {
         $this->idCliente = $idCliente;
 
         return $this;
@@ -131,7 +131,7 @@ class factura
     /**
      * Get idCliente
      *
-     * @return Tp\StamparBundle\Entity\cliente
+     * @return Tp\StamparBundle\Entity\Cliente
      */
     public function getIdCliente() {
         return $this->idCliente;
@@ -140,10 +140,10 @@ class factura
     /**
      * Add idLineaFactura
      *
-     * @param \Tp\StamparBundle\Entity\linea_factura $idLineaFactura
+     * @param \Tp\StamparBundle\Entity\Linea_factura $idLineaFactura
      * @return Factura
      */
-    public function addIdLineaFactura(\Tp\StamparBundle\Entity\linea_factura $idLineaFactura)
+    public function addIdLineaFactura(\Tp\StamparBundle\Entity\Linea_factura $idLineaFactura)
     {
         $this->idLineaFactura[] = $idLineaFactura;
     
@@ -153,9 +153,9 @@ class factura
     /**
      * Remove idLineaFactura
      *
-     * @param \Tp\StamparBundle\Entity\linea_factura $idLineaFactura
+     * @param \Tp\StamparBundle\Entity\Linea_factura $idLineaFactura
      */
-    public function removeIdLineaFactura(\Tp\StamparBundle\Entity\linea_factura $idLineaFactura)
+    public function removeIdLineaFactura(\Tp\StamparBundle\Entity\Linea_factura $idLineaFactura)
     {
         $this->idLineaFactura->removeElement($idLineaFactura);
     }
