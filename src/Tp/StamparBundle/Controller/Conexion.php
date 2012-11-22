@@ -45,13 +45,13 @@ class Conexion {
         return $pedidos;
     }
     
-    public function buscarPedidosPorEmpleado($nomyape){
+    public function buscarClientesPorNomyape($nomyape){
         $clientes = array();
 
         $consulta = mysql_query('SELECT c.id, c.direccion, c.telefono, p.dni, p.nombre, p.apellido from Cliente AS c
                                     INNER JOIN Persona AS p
                                         ON c.id = p.id_cliente
-                                    WHERE p.nombre LIKE %'.$nomyape.'% OR p.apellido LIKE %'.$nomyape.'%
+                                    WHERE p.nombre LIKE "%'.$nomyape.'%" OR p.apellido LIKE "%'.$nomyape.'%"
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
             var_dump($value);

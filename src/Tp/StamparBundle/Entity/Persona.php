@@ -47,7 +47,7 @@ class Persona
      *
      * @ORM\ManyToOne(targetEntity="Cliente")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id", nullable=false)
      * })
      */
     private $idCliente;

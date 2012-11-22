@@ -42,7 +42,7 @@ class DefaultController extends Controller
      */
     public function clientesAction($nomyape)
     {
-        $pedidos = $this->em->buscarClientes($nomyape);
+        $pedidos = $this->em->buscarClientesPorNomyape($nomyape);
 //        var_dump($pedidos);die;
         return array('entities' => $pedidos);
     }
