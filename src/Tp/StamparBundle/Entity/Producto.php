@@ -43,6 +43,13 @@ class Producto
     private $cantidad;
     
     /**
+     * @var float $precio
+     *
+     * @ORM\Column(name="precio", type="float", nullable=false)
+     */
+    private $precio;
+    
+    /**
      * @var TipoProducto
      *
      * @ORM\ManyToOne(targetEntity="TipoProducto")
@@ -51,6 +58,16 @@ class Producto
      * })
      */
     private $idTipoProducto;
+    
+    /**
+     * @var Proveedor
+     *
+     * @ORM\ManyToOne(targetEntity="proveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_proveedor", referencedColumnName="id")
+     * })
+     */
+    private $idProveedor;
 
 
     /**
@@ -131,7 +148,30 @@ class Producto
     {
         return $this->idTipoProducto;
     }
+    
+     /**
+     * Set idProveedor
+     *
+     * @param Tp\StamparBundle\Entity\proveedor $idProveedor
+     * @return Producto
+     */
+    public function setIdProveedor(\Tp\StamparBundle\Entity\proveedor $idProveedor = null)
+    {
+        $this->idProveedor = $idProveedor;
+    
+        return $this;
+    }
 
+    /**
+     * Get idProveedor
+     *
+     * @return Tp\StamparBundle\Entity\proveedor
+     */
+    public function getIdProveedor()
+    {
+        return $this->idProveedor;
+    }
+    
     /**
      * Set cantidad
      *
@@ -153,5 +193,28 @@ class Producto
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+    
+    /**
+     * Set precio
+     *
+     * @param float $precio
+     * @return Producto
+     */
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
+    
+        return $this;
+    }
+
+    /**
+     * Get precio
+     *
+     * @return float 
+     */
+    public function getPrecio()
+    {
+        return $this->precio;
     }
 }
