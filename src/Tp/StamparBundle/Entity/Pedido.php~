@@ -32,6 +32,16 @@ class Pedido
      * @ORM\OneToMany(targetEntity="LineaPedido", mappedBy="idPedido", cascade={"persist", "remove"})
      */
     private $idLineaPedido;
+    
+    /**
+     * @var Empleado
+     *
+     * @ORM\ManyToOne(targetEntity="Empleado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
+     * })
+     */
+    private $idEmpleado;
 
 
     /**
