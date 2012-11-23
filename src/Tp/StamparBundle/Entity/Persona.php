@@ -19,7 +19,7 @@ class Persona
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @var integer
@@ -45,7 +45,7 @@ class Persona
     /**
      * @var Cliente
      *
-     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\OneToOne(targetEntity="Cliente",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id", nullable=false)
      * })
@@ -53,6 +53,10 @@ class Persona
     private $idCliente;
 
 
+    public function __toString() {
+        return $this->getNombre().', '.$this->getApellido();
+    }
+    
     /**
      * Get id
      *

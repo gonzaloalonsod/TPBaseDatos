@@ -19,7 +19,7 @@ class Empresa
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @var string
@@ -38,7 +38,7 @@ class Empresa
     /**
      * @var Cliente
      *
-     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\OneToOne(targetEntity="Cliente",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
      * })
@@ -46,6 +46,9 @@ class Empresa
     private $idCliente;
 
 
+    public function __toString() {
+        return $this->getRazonSocial();
+    }
     /**
      * Get id
      *

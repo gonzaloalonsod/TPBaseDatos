@@ -14,7 +14,10 @@ class PersonaType extends AbstractType
             ->add('dni')
             ->add('nombre')
             ->add('apellido')
-            ->add('idCliente')
+//            ->add('idCliente')
+            ->add('idCliente', new ClienteType(), array(
+                'label' => 'Datos',
+            ))
         ;
     }
 

@@ -14,6 +14,9 @@ use Tp\StamparBundle\Entity\Factura;
 use Tp\StamparBundle\Form\FacturaType;
 use Tp\StamparBundle\Form\FacturaFilterType;
 
+use Tp\StamparBundle\Form\FacturaEmpresaType;
+use Tp\StamparBundle\Entity\Cliente;
+
 /**
  * Factura controller.
  *
@@ -154,6 +157,23 @@ class FacturaController extends Controller
             'form'   => $form->createView(),
         );
     }
+    
+    /**
+     * Displays a form to create a new Factura entity.
+     *
+     * @Route("/new/empresa", name="factura_new_empresa")
+     * @Template("TpStamparBundle:Factura:new.html.twig")
+     */
+    public function newEmpresaAction()
+    {
+        $entity = new Factura();
+        $form   = $this->createForm(new FacturaEmpresaType(), $entity);
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
 
     /**
      * Creates a new Factura entity.
@@ -166,18 +186,44 @@ class FacturaController extends Controller
     {
         $entity  = new Factura();
         $request = $this->getRequest();
-        $form    = $this->createForm(new FacturaType(), $entity);
-        $form->bind($request);
+        
+        $em = $this->getDoctrine()->getManager();
+        $requestDatos = $request->request->get('tp_stamparbundle_facturatype');
+//        var_dump($requestDatos);die;
+        if ($requestDatos['tipo'] == 'persona') {
+            $id_persona = $requestDatos['idCliente'];
+            $persona = $em->getRepository('TpStamparBundle:Persona')->find($id_persona);
+            $id_cliente = $persona->getIdCliente();
+//            echo $id_cliente.'c';die;
+        } else {
+            $id_empresa = $requestDatos['idCliente'];
+            $empresa = $em->getRepository('TpStamparBundle:Empresa')->find($id_empresa);
+            $id_cliente = $empresa->getIdCliente();
+//            echo $id_cliente.'e';die;
+        }
+        
+        $cliente = new Cliente();
+        $cliente = $em->getRepository('TpStamparBundle:Cliente')->find($id_cliente);
+        $empleado = $em->getRepository('TpStamparBundle:Empleado')->find($requestDatos['idEmpleado']);
+        
+        $entity->setIdCliente($cliente);
+        $entity->setTotal($requestDatos['total']);
+        $entity->setIdEmpleado($empleado);
 
-        if ($form->isValid()) {
+//        $form    = $this->createForm(new FacturaType(), $entity);
+//        $form->bind($request);
+
+//        var_dump($form->getData());die;
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'flash.create.success');
 
-            return $this->redirect($this->generateUrl('factura_show', array('id' => $entity->getId())));        } else {
-            $this->get('session')->getFlashBag()->add('error', 'flash.create.error');
-        }
+            return $this->redirect($this->generateUrl('factura_show', array('id' => $entity->getId())));
+//        } else {
+//            $this->get('session')->getFlashBag()->add('error', 'flash.create.error');
+//        }
 
         return array(
             'entity' => $entity,

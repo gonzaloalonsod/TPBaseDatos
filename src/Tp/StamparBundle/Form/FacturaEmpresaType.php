@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
-class FacturaType extends AbstractType
+class FacturaEmpresaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -16,18 +16,18 @@ class FacturaType extends AbstractType
 //            ->add('fecha')
 //            ->add('idCliente')
             ->add('idCliente', 'entity', array(
-                    'label' => 'Cliente Persona',
+                    'label' => 'Cliente Empresa',
                     'class' => 'TpStamparBundle:Cliente',
                     'query_builder' => function(EntityRepository $er) {
                         $con = $er->createQueryBuilder('c')
-                                ->join("TpStamparBundle:Persona", 'p')
-                                ->where('c.id = p.idCliente');
-                        return $con->select('p');
+                                ->join("TpStamparBundle:Empresa", 'e')
+                                ->where('c.id = e.idCliente');
+                        return $con->select('e');
                     }
                  ))
             ->add('idEmpleado')
             ->add('tipo', 'hidden', array(
-                    'data' => 'persona',
+                    'data' => 'empresa',
                     'property_path' => false,
                 )
             )

@@ -36,6 +36,10 @@ class Cliente
     private $telefono;
 
 
+    public function __toString() {
+        return $this->getId().'loco';
+    }
+
     /**
      * Get id
      *

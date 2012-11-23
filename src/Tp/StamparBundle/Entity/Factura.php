@@ -60,6 +60,12 @@ class Factura
      */
     private $idLineaFactura;
     
+    
+    public function __construct()
+    {
+        $this->fecha =  new \DateTime();
+    }
+    
     /**
      * Get id
      *

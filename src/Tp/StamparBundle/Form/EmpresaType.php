@@ -13,7 +13,10 @@ class EmpresaType extends AbstractType
         $builder
             ->add('razon_social')
             ->add('CUIT')
-            ->add('idCliente')
+//            ->add('idCliente')
+            ->add('idCliente', new ClienteType(), array(
+                'label' => 'Datos',
+            ))
         ;
     }
 
