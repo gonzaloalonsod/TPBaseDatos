@@ -1,12 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<h1>Factura list</h1>
+<h1>Factura con importe mayor a $1000</h1>
 
 <table class="records_list">
     <thead>
         <tr>
             <th>Id</th>
+            <th>Id Cliente</th>
             <th>Total</th>
             <th>Fecha</th>
             <th>Actions</th>
@@ -16,6 +17,7 @@
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('factura_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.id_cliente }}</td>
             <td>{{ entity.total }}</td>
             <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>
