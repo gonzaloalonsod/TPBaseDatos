@@ -21,13 +21,13 @@ class Conexion {
         }
     }
     
-    public function buscarPedidosPorEmpleado($id){
+    public function buscarPedidosPorEmpleado($nomyape){
         $pedidos = array();
         
-        $consulta = mysql_query('SELECT p.id, p.fecha from Pedido AS p
+        $consulta = mysql_query('SELECT e.nombre, e.apellido, p.id, p.fecha from Pedido AS p
                                     INNER JOIN Empleado AS e
                                         ON p.id_empleado = e.id
-                                    WHERE e.id = '.$id.'
+                                    WHERE e.nombre LIKE "%'.$nomyape.'%" OR e.apellido LIKE "%'.$nomyape.'%"
                                 ');
 //        $res = mysql_fetch_array($consulta);
         while ($value = mysql_fetch_object($consulta)) {
@@ -96,12 +96,10 @@ class Conexion {
     public function buscarFacturasMayor($valor){
         $facturas = array();
 
-        $consulta = mysql_query('SELECT f.id, f.fecha, f.total from Factura AS f
+        $consulta = mysql_query('SELECT f.id_cliente, f.id, f.fecha, f.total from Factura AS f
                                     INNER JOIN Cliente AS c
-                                        ON f.id_cliente = c.id
-                                    INNER JOIN Persona AS p
-                                        ON c.id = p.id_cliente
-                                    WHERE f.total > '.$valor.'
+                                        ON f.id_cliente = c.id                                   
+                                    WHERE f.total > 1000
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
             var_dump($value);
