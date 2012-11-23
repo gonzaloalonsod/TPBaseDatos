@@ -32,7 +32,7 @@ class Conexion {
 //        $res = mysql_fetch_array($consulta);
         while ($value = mysql_fetch_object($consulta)) {
             //$local = new local($r["codLoc"], $r["Nomb"], $r["Direccion"], $r["BeterinarioResp"]);
-            var_dump($value);
+            //var_dump($value);
             echo '<br>';
 //            $pedido = new Pedido();
 //            $pedido->setId($value['id']);
@@ -54,7 +54,7 @@ class Conexion {
                                     WHERE p.nombre LIKE "%'.$nomyape.'%" OR p.apellido LIKE "%'.$nomyape.'%"
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
-            var_dump($value);
+            //var_dump($value);
             echo '<br>';
             array_push($clientes, $value);
         }
@@ -73,7 +73,7 @@ class Conexion {
                                     WHERE p.dni = '.$dni.'
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
-            var_dump($value);
+            //var_dump($value);
             echo '<br>';
             array_push($compras, $value);
         }
@@ -102,7 +102,7 @@ class Conexion {
                                     WHERE f.total > 1000
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
-            var_dump($value);
+            //var_dump($value);
             echo '<br>';
             array_push($facturas, $value);
         }
