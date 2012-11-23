@@ -190,10 +190,10 @@ img.aligncenter {
 	float: left;
 	height: 35px;
 	margin: 0px;
-	padding: 5px 30px 0px 30px;
+	padding: 5px 0px 0px 30px;
 	text-decoration: none;
 	font-family: 'Nova Mono', cursive;
-	font-size: 20px;
+	font-size: 18px;
 	color: #B5B5B5;
 	border: none;
 }
