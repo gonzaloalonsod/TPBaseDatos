@@ -26,35 +26,38 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/pedidos/{id}", name="pedidos")
+     * @Route("/pedidos", name="pedidos")
      * @Template()
      */
-    public function pedidosAction($id)
+    public function pedidosAction()
     {
+        $id=$_GET["nombre"];
         $pedidos = $this->em->buscarPedidosPorEmpleado($id);
 //        var_dump($pedidos);die;
         return array('entities' => $pedidos);
     }
     
     /**
-     * @Route("/clientes/{nomyape}", name="clientes")
+     * @Route("/clientes", name="clientes")
      * @Template()
      */
-    public function clientesAction($nomyape)
+    public function clientesAction()
     {
-        $clientes = $this->em->buscarClientesPorNomyape($nomyape);
+        $id=$_GET["nombre"];
+        $clientes = $this->em->buscarClientesPorNomyape($id);
 //        var_dump($clientes);die;
         return array('entities' => $clientes);
     }
     
     /**
-     * @Route("/compras/{dni}", name="compras")
+     * @Route("/compras", name="compras")
      * @Template()
      */
-    public function comprasAction($dni)
+    public function comprasAction()
     {
-        $compras = $this->em->buscarComprasDeCliente($dni);
-        $total = $this->em->totalComprasDeCliente($dni);
+        $id=$_GET["nombre"];
+        $compras = $this->em->buscarComprasDeCliente($id);
+        $total = $this->em->totalComprasDeCliente($id);
 //        var_dump($total);die;
         return array(
             'entities' => $compras,
