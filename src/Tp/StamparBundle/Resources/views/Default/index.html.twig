@@ -1,6 +1,9 @@
 {% extends '::base.html.twig' %}
-
+ 
 {% block body %}
+<link href="/bundles/jordillonchcrudgenerator/css/bootstrap.css" rel="stylesheet">
+ <link href="/bundles/jordillonchcrudgenerator/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/bundles/jordillonchcrudgenerator/css/crud.css" rel="stylesheet">
 <div id="content">
     <div class="post">
         <h2 class="title">Consultas</h2>
@@ -12,7 +15,7 @@
                     </strong>
                     <form action='pedidos' metod='post'>                        
                         <input type='text' name='nombre'>
-                        <input type='submit' value='Buscar'>
+                        <input type='submit' class="btn btn-success" value='Buscar'>
                         </form>                       
                 </li>
                 <br>
@@ -22,7 +25,7 @@
                             Listar todos los clientes que coincidan con determinada cadena de caracteres en su nombre o apellido.                        
                         <form action='clientes' metod='post'>                        
                         <input type='text' name='nombre'>
-                        <input type='submit' value='Buscar'>
+                        <input type='submit' class="btn btn-success" value='Buscar'>
                         </form>    
                     </strong>
                 </li>
@@ -33,7 +36,7 @@
                             Obtener un listado de todas las compras hechas por un cliente y su total.                        
                             <form action='compras' metod='post'>                        
                         <input type='text' name='nombre'>
-                        <input type='submit' value='Buscar'>
+                        <input type='submit' class="btn btn-success" value='Buscar'>
                         </form>  
                     </strong>
                 </li>
