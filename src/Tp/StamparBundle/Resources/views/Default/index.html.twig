@@ -3,39 +3,51 @@
 {% block body %}
 <div id="content">
     <div class="post">
-            <h2 class="title">Consultas</h2>
-            <div class="entry">
-                <ul>
-                    <li>
-                        <strong>
-                            <a href="{{ path('pedidos', { 'id': 1 }) }}">
-                                Obtener todos los pedidos hechos por un determinado empleado.
+        <h2 class="title">Consultas</h2>
+        <div class="entry">
+            <ul>
+                <li>
+                    <strong>                            
+                                Obtener todos los pedidos hechos por un determinado empleado.                          
+                    </strong>
+                    <form action='pedidos' metod='post'>                        
+                        <input type='text' name='nombre'>
+                        <input type='submit' value='Buscar'>
+                        </form>                       
+                </li>
+                <br>
+                <br>
+                <li>
+                    <strong>                        
+                            Listar todos los clientes que coincidan con determinada cadena de caracteres en su nombre o apellido.                        
+                        <form action='clientes' metod='post'>                        
+                        <input type='text' name='nombre'>
+                        <input type='submit' value='Buscar'>
+                        </form>    
+                    </strong>
+                </li>
+                 <br>
+                <br>
+                <li>
+                    <strong>                        
+                            Obtener un listado de todas las compras hechas por un cliente y su total.                        
+                            <form action='compras' metod='post'>                        
+                        <input type='text' name='nombre'>
+                        <input type='submit' value='Buscar'>
+                        </form>  
+                    </strong>
+                </li>
+                 <br>
+                <br>
+                <li>
+                    <strong>
+                        <a href="{{ path('facturas') }}">
+                            Listar todas las facturas que superen los $1000. 
                             </a>
-                        </strong>
-                    </li>
-                    <li>
-                        <strong>
-                            <a href="{{ path('clientes', { 'nomyape': 'a' }) }}">
-                                Listar todos los clientes que coincidan con determinada cadena de caracteres en su nombre o apellido.
-                            </a>
-                        </strong>
-                    </li>
-                    <li>
-                        <strong>
-                            <a href="{{ path('compras', { 'dni': 1 }) }}">
-                                Obtener un listado de todas las compras hechas por un cliente y su total.
-                            </a>
-                        </strong>
-                    </li>
-                    <li>
-                        <strong>
-                            <a href="{{ path('facturas') }}">
-                                Listar todas las facturas que superen los $1000.
-                            </a>
-                        </strong>
-                    </li>
-                </ul>
-            </div>
+                    </strong>
+                </li>
+            </ul>
+        </div>
     </div>
     {#<div class="post">
             <h2 class="title"><a href="#">Lorem ipsum sed aliquam</a></h2>
