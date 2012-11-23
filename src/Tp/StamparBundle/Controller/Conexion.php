@@ -21,19 +21,19 @@ class Conexion {
         }
     }
     
-    public function buscarPedidosPorEmpleado($nomyape){
+    public function buscarPedidosPorEmpleado($id){
         $pedidos = array();
         
-        $consulta = mysql_query('SELECT e.nombre, e.apellido, p.id, p.fecha from Pedido AS p
+        $consulta = mysql_query('SELECT p.id, p.fecha from Pedido AS p
                                     INNER JOIN Empleado AS e
                                         ON p.id_empleado = e.id
-                                    WHERE e.nombre LIKE "%'.$nomyape.'%" OR e.apellido LIKE "%'.$nomyape.'%"
+                                    WHERE e.id = '.$id.'
                                 ');
 //        $res = mysql_fetch_array($consulta);
         while ($value = mysql_fetch_object($consulta)) {
             //$local = new local($r["codLoc"], $r["Nomb"], $r["Direccion"], $r["BeterinarioResp"]);
-            //var_dump($value);
-            echo '<br>';
+//            var_dump($value);
+//            echo '<br>';
 //            $pedido = new Pedido();
 //            $pedido->setId($value['id']);
 //            $pedido->setFecha($value['fecha']);
@@ -55,26 +55,24 @@ class Conexion {
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
             //var_dump($value);
-            echo '<br>';
+//            echo '<br>';
             array_push($clientes, $value);
         }
 
         return $clientes;
     }
     
-    public function buscarComprasDeCliente($dni){
+    public function buscarComprasDeCliente($id){
         $compras = array();
 
         $consulta = mysql_query('SELECT f.id, f.fecha, f.total from Factura AS f
                                     INNER JOIN Cliente AS c
                                         ON f.id_cliente = c.id
-                                    INNER JOIN Persona AS p
-                                        ON c.id = p.id_cliente
-                                    WHERE p.dni = '.$dni.'
+                                    WHERE c.id = '.$id.'
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
             //var_dump($value);
-            echo '<br>';
+//            echo '<br>';
             array_push($compras, $value);
         }
 
@@ -93,56 +91,41 @@ class Conexion {
         return mysql_fetch_row($consulta);
     }
     
-    public function buscarFacturasMayor($valor){
+    public function buscarFacturasMayor(){
         $facturas = array();
 
-        $consulta = mysql_query('SELECT f.id_cliente, f.id, f.fecha, f.total from Factura AS f
+        $consulta = mysql_query('SELECT f.id, f.fecha, f.total, p.nombre, p.apellido, e.razon_social from Factura AS f
                                     INNER JOIN Cliente AS c
-                                        ON f.id_cliente = c.id                                   
+                                        ON f.id_cliente = c.id
+                                    LEFT JOIN Persona AS p
+                                        ON c.id = p.id_cliente
+                                    LEFT JOIN Empresa AS e
+                                        ON c.id = e.id_cliente
                                     WHERE f.total > 1000
                                 ');
         while ($value = mysql_fetch_object($consulta)) {
-            //var_dump($value);
-            echo '<br>';
+//            var_dump($value);
+//            echo '<br>';
             array_push($facturas, $value);
         }
-
         return $facturas;
     }
-
-//    public function findAllLocal(){
-//        $consulta = mysql_query('SELECT * from local');
-//        $resultado = $this->paginar($consulta);
-//        return $resultado;
-//    }
-//    
-//    public function findAllMascota(){
-//        $consulta = mysql_query('SELECT * from mascota');
-//        $resultado = $this->paginar($consulta);
-//        return $resultado;
-//    }
-//    
-//    public function paginar($consulta){
-//        //MIRO CUANTOS DATOS FUERON DEVUELTOS
-//        $num_rows = mysql_num_rows($consulta);
-//        //CALCULO LA ULTIMA PÁGINA
-//        $lastpage = ceil($num_rows / $this->rows_per_page);
-//        //COMPRUEBO QUE EL VALOR DE LA PÁGINA SEA CORRECTO Y SI ES LA ULTIMA PÁGINA
-//        $page=(int)$this->page;
-//        if($page > $lastpage){
-//            $page= $lastpage;
-//        }
-//        if($page < 1){
-//            $page=1;
-//        }
-//        
-//        return $consulta;
-//    }
-//    
-//    public function findMascota($cod){
-//        $consulta = mysql_query('SELECT * from mascota WHERE Cod = '.$cod);
-//        $resultado =  mysql_fetch_row($consulta);
-//        return $resultado;
-//    }
+    
+    public function buscarClientes(){
+        $consulta = mysql_query('SELECT c.id, p.nombre, p.apellido, e.razon_social from Cliente AS c
+                                    LEFT JOIN Persona AS p
+                                        ON c.id = p.id_cliente
+                                    LEFT JOIN Empresa AS e
+                                        ON c.id = e.id_cliente
+                                ');
+        while ($value = mysql_fetch_array($consulta)) {
+            if ($value['razon_social'] == NULL) {
+                $arreglo[$value['id']] = $value['nombre'].', '.$value['apellido'];
+            }  else {
+                $arreglo[$value['id']] = $value['razon_social'];
+            }
+        }
+        return $arreglo;
+    }
 }
 ?>

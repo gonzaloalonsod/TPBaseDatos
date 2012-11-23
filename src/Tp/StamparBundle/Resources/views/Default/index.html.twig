@@ -11,43 +11,59 @@
             <ul>
                 <li>
                     <strong>                            
-                                Obtener todos los pedidos hechos por un determinado empleado.                          
+                        Obtener todos los pedidos hechos por un determinado empleado.                          
                     </strong>
-                    <form action='pedidos' metod='post'>                        
-                        <input type='text' name='nombre'>
-                        <input type='submit' class="btn btn-success" value='Buscar'>
-                        </form>                       
+                    <form class="well" action="{{ path('pedidos') }}" method="post">
+                        {{ form_widget(formEmpleado) }}
+                        <p>
+                            <button type="submit" class="btn btn-success">Consultar</button>
+                        </p>
+                    </form>
                 </li>
                 <br>
                 <br>
                 <li>
                     <strong>                        
-                            Listar todos los clientes que coincidan con determinada cadena de caracteres en su nombre o apellido.                        
-                        <form action='clientes' metod='post'>                        
+                        Listar todos los clientes que coincidan con determinada cadena de caracteres en su nombre o apellido.
+                    </strong>
+                    <form class="well" action="{{ path('clientes') }}" method="post">
+                        {{ form_widget(formNombre) }}
+                        <p>
+                            <button type="submit" class="btn btn-success">Buscar</button>
+                        </p>
+                    </form>
+                    {#<form class="well" action="{{ path('clientes') }}" metod="post">                        
                         <input type='text' name='nombre'>
                         <input type='submit' class="btn btn-success" value='Buscar'>
-                        </form>    
-                    </strong>
+                    </form>#}
                 </li>
                  <br>
                 <br>
                 <li>
                     <strong>                        
-                            Obtener un listado de todas las compras hechas por un cliente y su total.                        
-                            <form action='compras' metod='post'>                        
+                        Obtener un listado de todas las compras hechas por un cliente y su total.
+                    </strong>
+                    <form class="well" action="{{ path('compras') }}" method="post">
+                        {{ form_widget(formCliente) }}
+                        <p>
+                            <button type="submit" class="btn btn-success">Listar compras</button>
+                        </p>
+                    </form>
+                    {#<form class="well" action='compras' metod='post'>
                         <input type='text' name='nombre'>
                         <input type='submit' class="btn btn-success" value='Buscar'>
-                        </form>  
-                    </strong>
+                    </form>#}
                 </li>
                  <br>
                 <br>
                 <li>
+                    <div class="well">
                     <strong>
                         <a href="{{ path('facturas') }}">
                             Listar todas las facturas que superen los $1000. 
-                            </a>
+                        </a>
                     </strong>
+                    </div>
                 </li>
             </ul>
         </div>

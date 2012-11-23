@@ -22,7 +22,14 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $formEmpleado = $this->choiceEmpleadoForm();
+        $formNombre = $this->nombreEmpleadoForm();
+        $formCliente = $this->choiceClienteForm();
+        return array(
+            'formEmpleado' => $formEmpleado->createView(),
+            'formNombre' => $formNombre->createView(),
+            'formCliente' => $formCliente->createView(),
+        );
     }
     
     /**
@@ -31,7 +38,10 @@ class DefaultController extends Controller
      */
     public function pedidosAction()
     {
-        $id=$_GET["nombre"];
+        $request = $this->getRequest();
+        $requestDatos = $request->request->get('form');
+        $id = $requestDatos['idEmpleado'];
+
         $pedidos = $this->em->buscarPedidosPorEmpleado($id);
 //        var_dump($pedidos);die;
         return array('entities' => $pedidos);
@@ -43,8 +53,11 @@ class DefaultController extends Controller
      */
     public function clientesAction()
     {
-        $id=$_GET["nombre"];
-        $clientes = $this->em->buscarClientesPorNomyape($id);
+        $request = $this->getRequest();
+        $requestDatos = $request->request->get('form');
+        $nomyape = $requestDatos['nombre'];
+
+        $clientes = $this->em->buscarClientesPorNomyape($nomyape);
 //        var_dump($clientes);die;
         return array('entities' => $clientes);
     }
@@ -55,7 +68,10 @@ class DefaultController extends Controller
      */
     public function comprasAction()
     {
-        $id=$_GET["nombre"];
+        $request = $this->getRequest();
+        $requestDatos = $request->request->get('form');
+        $id = $requestDatos['idCliente'];
+//        $id=$_GET["nombre"];
         $compras = $this->em->buscarComprasDeCliente($id);
         $total = $this->em->totalComprasDeCliente($id);
 //        var_dump($total);die;
@@ -74,5 +90,48 @@ class DefaultController extends Controller
         $facturas = $this->em->buscarFacturasMayor(1000);
 //        var_dump($clientes);die;
         return array('entities' => $facturas);
+    }
+    
+    public function choiceEmpleadoForm()
+    {
+        return $this->createFormBuilder()
+        ->add('idEmpleado', 'entity', array(
+            'label' => 'Empleados',
+            'class'         => 'Tp\StamparBundle\Entity\Empleado',
+        ))
+//        ->add('empresas', 'entity', array(
+//                'label'         => 'Empresa Sucursal',
+//                'class'         => 'Es\MiBundle\Entity\Empresa',
+//                'query_builder' => function ($repository) use ($usuario) {
+//                                                                    return $repository->createQueryBuilder('e')
+//                                                                              ->where('e.usuario = :usuario AND e.enabled = 1')
+//                                                                              ->setParameter('usuario', $usuario)
+//                                                                    ;},
+//                'property' => 'nombre',
+//            ))
+        ->getForm()
+        ;
+    }
+    
+    public function nombreEmpleadoForm()
+    {
+        return $this->createFormBuilder()
+        ->add('nombre', 'text', array(
+            'label' => 'Nombre o Apellido',
+        ))
+        ->getForm()
+        ;
+    }
+    
+    public function choiceClienteForm()
+    {
+        $choices = $this->em->buscarClientes();
+        return $this->createFormBuilder()
+        ->add('idCliente', 'choice', array(
+            'choices' => array($choices),
+            'label' => 'Clientes',
+        ))
+        ->getForm()
+        ;
     }
 }
